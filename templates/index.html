@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>PDF and JPG Merger - ホーム</title>
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+    <style>
+        body {
+            background-color: #f5f5f5;
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+        }
+        
+        h1 {
+            text-align: center;
+            padding-top: 20px;
+            color: #333;
+        }
+        
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 30px;
+            background-color: #fff;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+            text-align: center;
+            margin-top: 40px;
+        }
+        
+        .message {
+            padding: 10px;
+            margin-bottom: 10px;
+            border-radius: 4px;
+        }
+        /* メッセージカテゴリーに基づくスタイルを定義 */
+        
+        .error {
+            background-color: #f8d7da;
+            color: #721c24;
+        }
+        
+        .success {
+            background-color: #d4edda;
+            color: #155724;
+        }
+        
+        .info {
+            background-color: #d1ecf1;
+            color: #0c5460;
+        }
+        
+        .button {
+            background-color: #007BFF;
+            color: #fff;
+            padding: 12px 20px;
+            border-radius: 4px;
+            font-size: 16px;
+            text-decoration: none;
+            margin: 16px;
+            display: inline-block;
+            transition: background-color 0.3s ease;
+        }
+        
+        .button:hover {
+            background-color: #0056b3;
+        }
+        
+        .button-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-top: 20px;
+            animation: fadeInUp 1s;
+        }
+        
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .highlight {
+            animation: pulse 2s infinite;
+        }
+        
+        @keyframes pulse {
+            0%,
+            100% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.1);
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container animate__animated animate__fadeInUp">
+        <h1>PDF and JPG Merger</h1>
+        <p>
+            このWebアプリケーションでは、PDF結合とJPG画像結合の機能が別々に利用できます。
+        </p>
+        <div class="button-container">
+            <a class="button highlight" href="{{ url_for('pdf_merge') }}">PDF結合ページへ移動</a>
+            <a class="button highlight" href="{{ url_for('jpg_merge') }}">JPG画像結合ページへ移動</a>
+        </div>
+    </div>
+</body>
+
+</html>
