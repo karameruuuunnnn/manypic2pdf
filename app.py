@@ -6,7 +6,7 @@ from PyPDF2 import PdfMerger
 
 app = Flask(__name__)
 app.secret_key = "your_secret_key"
-#UndefinedErrorが出るのは元から．でてもpdfファイルは出力される．出力されないなら，以下のjpegがjpgになってるかその逆か
+
 def convert_images_to_pdf(input_folder, output_file):
     images = []
     for file in sorted(glob.glob(os.path.join(input_folder, "*.jpg"))):
