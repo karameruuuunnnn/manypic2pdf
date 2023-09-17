@@ -68,7 +68,7 @@
 <body>
     <h1>JPG Merge</h1>
     {% with messages = get_flashed_messages() %} {% if messages %} {% for message in messages %}
-    <div class="message {{ message_category(message) }}">{{ message }}</div>
+    <div class="message {{ message|message_category }}">{{ message }}</div>
     {% endfor %} {% endif %} {% endwith %}
     <h2>JPG画像結合</h2>
     <form method="post" enctype="multipart/form-data" action="{{ url_for('jpg_merge') }}">
