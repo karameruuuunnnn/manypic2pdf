@@ -107,6 +107,9 @@
         <p>
             このWebアプリケーションでは、PDF結合とJPG画像結合の機能が別々に利用できます。
         </p>
+        {% with messages = get_flashed_messages() %} {% if messages %} {% for message in messages %}
+        <div class="message {{ message|message_category }}">{{ message }}</div>
+        {% endfor %} {% endif %} {% endwith %}
         <div class="button-container">
             <a class="button highlight" href="{{ url_for('pdf_merge') }}">PDF結合ページへ移動</a>
             <a class="button highlight" href="{{ url_for('jpg_merge') }}">JPG画像結合ページへ移動</a>
