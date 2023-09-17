@@ -68,7 +68,7 @@
 <body>
     <h1>PDF Merge</h1>
     {% with messages = get_flashed_messages() %} {% if messages %} {% for message in messages %}
-    <div class="message {{ message_category(message) }}">{{ message }}</div>
+    <div class="message {{ message|message_category }}">{{ message }}</div>
     {% endfor %} {% endif %} {% endwith %}
     <h2>PDF結合</h2>
     <form method="post" enctype="multipart/form-data" action="{{ url_for('pdf_merge') }}">
