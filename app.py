@@ -6,10 +6,10 @@ from PyPDF2 import PdfMerger
 
 app = Flask(__name__)
 app.secret_key = "your_secret_key"
-#UndefinedErrorが出てもpdfファイルは出力される．もし出力されないなら，入力した写真の拡張子の問題
+#UndefinedErrorが出るのは元から．でてもpdfファイルは出力される．出力されないなら，以下のjpegがjpgになってるかその逆か
 def convert_images_to_pdf(input_folder, output_file):
     images = []
-    for file in sorted(glob.glob(os.path.join(input_folder, "*.jpeg"))):
+    for file in sorted(glob.glob(os.path.join(input_folder, "*.jpg"))):
         images.append(Image.open(file))
 
     if images:
@@ -62,7 +62,7 @@ def pdf_merge():
             else:
                 flash("PDFファイルが見つかりませんでした。", "error")
     
-    return render_template("pdf_merge.html", message_category=message_category)  
+    return render_template("pdf_merge.html", message_category=message_category)  # 関数をテンプレートに渡す
 
 @app.route("/jpg_merge", methods=["GET", "POST"])
 def jpg_merge():
@@ -84,10 +84,12 @@ def jpg_merge():
 
     return render_template("jpg_merge.html")
 
-def message_category(message):
-    if "error" in message:
+# message_categoryフィルターを定義
+@app.template_filter('message_category')
+def message_category(msg):
+    if msg.startswith("error"):
         return "error"
-    elif "success" in message:
+    elif msg.startswith("success"):
         return "success"
     else:
         return "info"
