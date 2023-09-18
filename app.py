@@ -62,7 +62,7 @@ def pdf_merge():
             else:
                 flash("PDFファイルが見つかりませんでした。", "error")
     
-    return render_template("pdf_merge.html", message_category=message_category)  # 関数をテンプレートに渡す
+    return render_template("pdf_merge.html", message_category=message_category)
 
 @app.route("/jpg_merge", methods=["GET", "POST"])
 def jpg_merge():
@@ -84,7 +84,6 @@ def jpg_merge():
 
     return render_template("jpg_merge.html")
 
-# message_categoryフィルターを定義
 @app.template_filter('message_category')
 def message_category(msg):
     if msg.startswith("error"):
