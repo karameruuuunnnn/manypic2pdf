@@ -44,26 +44,6 @@ def merge_pdfs(input_folder, output_file):
     else:
         return False
 
-@app.route("/pdf_merge", methods=["GET", "POST"])
-def pdf_merge():
-    if request.method == "POST":
-        input_folder = request.form["pdf_input_folder"]
-        output_file = request.form["pdf_output_file"]
-
-        if not os.path.exists(input_folder):
-            flash("入力フォルダが見つかりません。", "error")
-        elif not os.path.isdir(input_folder):
-            flash("入力パスはフォルダを指定してください。", "error")
-        elif not os.path.splitext(output_file)[1].lower() == ".pdf":
-            flash("出力ファイル名はPDF形式で指定してください。", "error")
-        else:
-            if merge_pdfs(input_folder, output_file):
-                flash("PDFファイルの結合が完了しました。", "success")
-            else:
-                flash("PDFファイルが見つかりませんでした。", "error")
-    
-    return render_template("pdf_merge.html", message_category=message_category)
-
 @app.route("/jpg_merge", methods=["GET", "POST"])
 def jpg_merge():
     if request.method == "POST":
@@ -83,6 +63,26 @@ def jpg_merge():
                 flash("JPG画像が見つかりませんでした。", "error")
 
     return render_template("jpg_merge.html")
+
+@app.route("/pdf_merge", methods=["GET", "POST"])
+def pdf_merge():
+    if request.method == "POST":
+        input_folder = request.form["pdf_input_folder"]
+        output_file = request.form["pdf_output_file"]
+
+        if not os.path.exists(input_folder):
+            flash("入力フォルダが見つかりません。", "error")
+        elif not os.path.isdir(input_folder):
+            flash("入力パスはフォルダを指定してください。", "error")
+        elif not os.path.splitext(output_file)[1].lower() == ".pdf":
+            flash("出力ファイル名はPDF形式で指定してください。", "error")
+        else:
+            if merge_pdfs(input_folder, output_file):
+                flash("PDFファイルの結合が完了しました。", "success")
+            else:
+                flash("PDFファイルが見つかりませんでした。", "error")
+    
+    return render_template("pdf_merge.html", message_category=message_category)
 
 @app.template_filter('message_category')
 def message_category(msg):
