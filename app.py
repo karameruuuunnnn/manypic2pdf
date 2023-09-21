@@ -9,18 +9,19 @@ app.secret_key = "your_secret_key"
 
 def convert_images_to_pdf(input_folder, output_file):
     images = []
+    #sortedはファイル名を昇順に並び替えている、別に昇順に並び替えないと処理無理とかじゃないはず
     for file in sorted(glob.glob(os.path.join(input_folder, "*.jpg"))):
         images.append(Image.open(file))
 
     if images:
         images[0].save(
-            output_file,
-            save_all=True,
-            append_images=images[1:],
-            resolution=100.0,
-            quality=95,
-            optimize=True,
-            compress_level=9
+            output_file,#出力するPDFファイルのパスと名前を指定
+            save_all=True,#すべての画像をPDFに保存するオプションを有効に
+            append_images=images[1:],#最初の画像以外の画像（images[1:]）を追加してPDFに結合
+            resolution=100.0,#PDFの解像度を設定
+            quality=95,#画像の品質を設定
+            optimize=True,#PDFを最適化するオプションを有効に
+            compress_level=9 #PDFを最適化するオプションを有効に
         )
         return True
     else:
@@ -32,13 +33,13 @@ def merge_pdfs(input_folder, output_file):
         pdfs.append(file)
 
     if pdfs:
-        pdf_merger = PdfMerger()
+        pdf_merger = PdfMerger()#複数のPDFファイルを結合するためのメソッドを提供している
         for pdf in pdfs:
-            with open(pdf, "rb") as pdf_file:
-                pdf_merger.append(pdf_file)
+            with open(pdf, "rb") as pdf_file:#読み込みモードで開いている
+                pdf_merger.append(pdf_file)#pdf_mergerにpdfを1枚ずつ追加している
 
-        with open(output_file, "wb") as merged_pdf:
-            pdf_merger.write(merged_pdf)
+        with open(output_file, "wb") as merged_pdf:#書き込みモードで開いている
+            pdf_merger.write(merged_pdf)#outputファイルに、結合させたpdfを書き込んでいる
 
         return True
     else:
@@ -82,8 +83,9 @@ def pdf_merge():
             else:
                 flash("PDFファイルが見つかりませんでした。", "error")
     
-    return render_template("pdf_merge.html", message_category=message_category)
+    return render_template("pdf_merge.html") 
 
+# message_categoryフィルターを定義
 @app.template_filter('message_category')
 def message_category(msg):
     if msg.startswith("error"):
